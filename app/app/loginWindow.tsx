@@ -2,36 +2,22 @@
 
 import { useState } from "react";
 
-export default function LoginWindow(
-  { setUpProfile }: {
-    setUpProfile:  (form: FormData) => Promise<void>;
-  }
-) {
+export default function LoginWindow({
+  setUpProfile,
+}: {
+  setUpProfile: (form: FormData) => Promise<void>;
+}) {
+  const [error, setError] = useState("");
 
-  /* 
-    TODO #1: Add a state variable to store the current error message
-  */
-
-  /*
-    This function is called to set up the profile of the new user. It is called
-    when a user submits the login form. It takes a FormData object as an argument,
-    which contains the username and name of the new user.
-    @param form - FormData object containing the username and name of the new user
-  */
   const onSubmit = async (form: FormData) => {
-    /* 
-      TODO #3: Set the error state to an empty string
-    */
+    setError("");
 
-    /* 
-      TODO #4: Set up a try catch block to call the setUpProfile() function and set the error state
-      if an error is thrown
-
-      HINT: 
-        - Use the setUpProfile() function to set up the user's profile and log them in
-        - In the catch block, set the error state to the error message (error.message)
-    */
-  }
+    try {
+      await setUpProfile(form);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <form action={onSubmit} >
